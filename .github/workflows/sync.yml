@@ -1,0 +1,51 @@
+name: Synchronisation quotidienne
+
+on:
+  schedule:
+    # tous les jours à 04:17 UTC (heure creuse pour le site source)
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+    inputs:
+      full:
+        description: "Tout retélécharger (--full)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Synchroniser les fiches
+        run: |
+          if [ "${{ inputs.full }}" = "true" ]; then
+            python3 scripts/sync.py --full
+          else
+            python3 scripts/sync.py
+          fi
+
+      - name: Publier les changements
+        run: |
+          git config user.name "sync-bot"
+          git config user.email "sync-bot@users.noreply.github.com"
+          git add -A docs/data
+          if git diff --cached --quiet; then
+            echo "Aucun changement aujourd'hui."
+            exit 0
+          fi
+          SUMMARY=$(python3 -c "import json; m=json.load(open('docs/data/meta.json')); print(f\"{m['count']} fiches, {m['updated']} mise(s) à jour, {m['deleted']} suppression(s)\")")
+          git commit -m "sync $(date -u +%F): $SUMMARY"
+          git push

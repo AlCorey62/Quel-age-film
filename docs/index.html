@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quel âge pour ce film ?</title>
+<meta name="description" content="Recherche rapide de l'âge conseillé pour un film, une série ou un court-métrage, d'après les fiches de filmspourenfants.net.">
+<meta name="theme-color" content="#1b1f33">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Quel âge ?">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="#" id="brand" aria-label="Accueil">
+      <svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="6" width="28" height="20" rx="4" fill="var(--accent)"/><path d="M13 11.5v9l8-4.5z" fill="var(--ink)"/></svg>
+      <span class="brand-name">Quel âge pour ce film&nbsp;?</span>
+    </a>
+    <div class="top-meta" id="meta" aria-live="polite"></div>
+  </div>
+
+  <div class="top-inner controls">
+    <form class="search" role="search" id="search-form" autocomplete="off">
+      <svg class="search-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      <input id="q" type="search" inputmode="search" placeholder="Titre, réalisateur, thème…" aria-label="Rechercher un film" enterkeyhint="search">
+      <button type="button" id="clear-q" class="icon-btn" aria-label="Effacer la recherche" hidden>✕</button>
+    </form>
+
+    <div class="ages" role="group" aria-label="Âge de l'enfant">
+      <div class="age-scroll" id="ages"></div>
+      <button type="button" class="kids-btn" id="kids-btn" title="Mes enfants">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 19c.6-3.4 2.7-5 5.5-5s4.9 1.6 5.5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="17" cy="9.5" r="2.4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.2 14.3c2.9-.3 4.7 1 5.3 4.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>Mes enfants</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="layout">
+  <aside class="filters" id="filters" aria-label="Filtres">
+    <div class="filters-head">
+      <h2>Filtres</h2>
+      <button type="button" class="link-btn" id="reset">Tout effacer</button>
+    </div>
+
+    <fieldset class="f-group" id="age-options" hidden>
+      <legend>Pour cet âge</legend>
+      <label class="check"><input type="checkbox" id="opt-limite"> <span>Inclure les films «&nbsp;limite&nbsp;» <small>(déconseillé aux plus jeunes, mais pas encore conseillé)</small></span></label>
+      <label class="check"><input type="checkbox" id="opt-toojeune" checked> <span>Masquer les films trop «&nbsp;bébé&nbsp;» pour cet âge</span></label>
+    </fieldset>
+
+    <fieldset class="f-group">
+      <legend>Format</legend>
+      <div class="chips" id="f-format"></div>
+    </fieldset>
+
+    <fieldset class="f-group">
+      <legend>Technique</legend>
+      <div class="chips" id="f-technique"></div>
+    </fieldset>
+
+    <fieldset class="f-group">
+      <legend>Univers</legend>
+      <div class="chips chips-wrap" id="f-univers"></div>
+    </fieldset>
+
+    <fieldset class="f-group">
+      <legend>Thèmes</legend>
+      <input type="text" id="theme-input" list="theme-list" placeholder="Ajouter un thème (ex. Mort, Amitié…)" aria-label="Ajouter un thème">
+      <datalist id="theme-list"></datalist>
+      <div class="chips" id="f-themes"></div>
+      <label class="check"><input type="checkbox" id="opt-themes-all"> <span>Tous les thèmes choisis à la fois</span></label>
+    </fieldset>
+
+    <fieldset class="f-group">
+      <legend>Durée maximale <output id="dmax-out">Sans limite</output></legend>
+      <input type="range" id="dmax" min="5" max="185" step="5" value="185" aria-label="Durée maximale en minutes">
+    </fieldset>
+
+    <fieldset class="f-group">
+      <legend>Année de sortie</legend>
+      <div class="range-pair">
+        <input type="number" id="y1" placeholder="de" min="1900" max="2100" inputmode="numeric" aria-label="Année minimale">
+        <span>–</span>
+        <input type="number" id="y2" placeholder="à" min="1900" max="2100" inputmode="numeric" aria-label="Année maximale">
+      </div>
+    </fieldset>
+
+    <fieldset class="f-group">
+      <legend>Pays</legend>
+      <select id="f-pays" aria-label="Pays"><option value="">Tous les pays</option></select>
+    </fieldset>
+
+    <p class="credit">Données&nbsp;: <a href="https://www.filmspourenfants.net" target="_blank" rel="noopener">filmspourenfants.net</a>, synchronisées chaque jour.</p>
+  </aside>
+
+  <section class="results" aria-label="Résultats">
+    <div class="results-head">
+      <div class="count" id="count" aria-live="polite">Chargement…</div>
+      <div class="results-tools">
+        <label class="sort"><span class="sr-only">Trier par</span>
+          <select id="sort">
+            <option value="rel">Pertinence</option>
+            <option value="title">Titre A→Z</option>
+            <option value="year">Année (récent d'abord)</option>
+            <option value="pub">Ajout sur le site (récent d'abord)</option>
+            <option value="age">Âge conseillé (croissant)</option>
+            <option value="dur">Durée (court d'abord)</option>
+          </select>
+        </label>
+        <button type="button" class="btn-secondary filters-toggle" id="filters-toggle" aria-controls="filters" aria-expanded="false">Filtres <span class="badge" id="filters-badge" hidden></span></button>
+      </div>
+    </div>
+    <div class="active-filters" id="active-filters"></div>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" hidden>
+      <p><strong>Aucun film ne correspond.</strong></p>
+      <p>Essaie avec moins de filtres, un autre âge, ou vérifie l'orthographe du titre.</p>
+    </div>
+    <div class="more-wrap"><button type="button" class="btn-secondary" id="more" hidden>Afficher plus</button></div>
+  </section>
+</main>
+
+<dialog class="detail" id="detail" aria-labelledby="detail-title"></dialog>
+
+<dialog class="kids" id="kids-dialog" aria-labelledby="kids-title">
+  <form method="dialog" class="kids-form" id="kids-form">
+    <div class="dialog-head">
+      <h2 id="kids-title">Mes enfants</h2>
+      <button type="submit" class="icon-btn" aria-label="Fermer" value="close">✕</button>
+    </div>
+    <p class="hint">Ajoute le prénom et la date de naissance&nbsp;: l'âge est calculé automatiquement et reste juste au fil des années. Tout reste sur cet appareil.</p>
+    <ul class="kids-list" id="kids-list"></ul>
+    <div class="kids-add">
+      <input type="text" id="kid-name" placeholder="Prénom" aria-label="Prénom" maxlength="30">
+      <input type="month" id="kid-birth" aria-label="Mois de naissance">
+      <button type="button" class="btn-primary" id="kid-add">Ajouter</button>
+    </div>
+  </form>
+</dialog>
+
+<template id="card-tpl">
+  <article class="card" tabindex="0" role="button">
+    <div class="poster"><img alt="" loading="lazy" decoding="async"></div>
+    <div class="card-body">
+      <div class="verdict" hidden></div>
+      <h3 class="card-title"></h3>
+      <div class="age-line"></div>
+      <div class="meta-line"></div>
+      <div class="scenes"></div>
+    </div>
+  </article>
+</template>
+
+<script src="app.js"></script>
+</body>
+</html>
