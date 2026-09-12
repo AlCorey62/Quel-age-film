@@ -21,7 +21,7 @@ difficiles, les thèmes et les messages relevés par le site.
 2. Dans le dépôt : **Settings → Pages → Build and deployment → Source : *Deploy from a branch*** ; branche `main`, dossier `/docs`. Enregistre.
 3. Dans **Settings → Actions → General → Workflow permissions**, coche **Read and write permissions** (le robot doit pouvoir pousser les données).
 4. Onglet **Actions → Synchronisation quotidienne → Run workflow** pour lancer une première synchro à la main (facultatif : les données du dépôt sont déjà à jour au moment du premier push).
-5. L'appli est servie sur `https://<toi>.github.io/<depot>/`. Sur le téléphone : menu du navigateur → *Ajouter à l'écran d'accueil*.
+5. L'appli est servie sur `https://alcorey62.github.io/Quel-age-film/`. Sur le téléphone : menu du navigateur → *Ajouter à l'écran d'accueil*.
 
 Ensuite, tout est automatique : le workflow tourne chaque nuit à 04:17 UTC, commit les fiches modifiées, et GitHub Pages
 republie le site. Sans changement côté source, aucun commit n'est créé.
