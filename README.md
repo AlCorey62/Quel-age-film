@@ -66,7 +66,45 @@ Le site attribue à chaque fiche deux âges et une plage :
 | « Déconseillé aux moins de X ans » | `deconseille-aux-moins-de` | âge minimum (`am`) → verdict « limite » entre `am` et `af` |
 | Âges auxquels le film convient | étiquettes `post_tag` | borne haute (`ax`) → « un peu bébé » au-delà |
 
+## Pour l'équipe de filmspourenfants.net
+
+Cette section répond aux questions habituelles sur la façon dont le projet interroge le site.
+
+**Aucun scraping HTML.** Le script n'utilise que l'API REST standard de WordPress, publique et
+déjà exposée par le site (`/wp-json/wp/v2/…`). Les pages HTML ne sont jamais téléchargées.
+
+**Points d'accès utilisés**
+
+| Appel | Rôle | Fréquence |
+|---|---|---|
+| `GET /wp/v2/pages?_fields=id,modified_gmt&per_page=100&page=N` | balayage : identifiants et dates de modification | 33 requêtes par nuit |
+| `GET /wp/v2/pages?include=…&_embed=wp:featuredmedia` | fiches nouvelles ou modifiées uniquement, par lots de 50 | 0 à 2 requêtes par nuit en régime normal |
+| `GET /wp/v2/<taxonomie>?include=…` | libellés de termes encore inconnus (nouveau thème, nouveau studio…) | rarement |
+
+Soit environ **35 requêtes par nuit**, espacées de 0,3 s, à 04:17 UTC. La toute première
+synchronisation, faite une seule fois, a représenté environ 200 requêtes sur 13 minutes.
+Les affiches ne sont pas copiées : l'interface charge les images depuis vos URL d'origine
+(CDN Jetpack `i0.wp.com`).
+
+**Identification.** Chaque requête porte le User-Agent
+`filmspourenfants-sync/1.0 (usage personnel; synchro quotidienne via API REST)`, ce qui permet
+de la reconnaître dans vos journaux et, si besoin, de la bloquer côté serveur.
+
+**Ce qui est stocké.** Titre, lien vers la fiche, âges, taxonomies (format, année, durée, studio,
+pays, créateurs, acteurs, univers, technique, thèmes) et le texte de la fiche découpé en sections
+(intro, Messages, Scènes difficiles, Vocabulaire). Rien d'autre : ni commentaires, ni utilisateurs,
+ni contenu non publié.
+
+**Réutilisation.** Le dossier `docs/` est un site statique autonome, sans framework ni étape de
+construction. Il peut être servi tel quel depuis n'importe quel hébergement, ou intégré à une refonte :
+- `docs/data/` est le seul couplage avec la source ; il peut être produit par `scripts/sync.py`
+  comme aujourd'hui, ou directement par WordPress (un export JSON à la publication d'une fiche
+  suffit) ;
+- `docs/app.js` contient toute la logique de recherche et de filtrage côté navigateur, sur un index
+  de 2,3 Mo pour 3 200 fiches, ce qui reste instantané sur mobile ;
+- le code est sous licence MIT (voir `LICENSE`) : libre d'usage, de modification et d'intégration.
+
 ## Remarques
 
-- Usage personnel : les textes et affiches restent la propriété de filmspourenfants.net ; chaque fiche renvoie vers la page d'origine.
+- Les textes et affiches restent la propriété de filmspourenfants.net ; chaque fiche renvoie vers la page d'origine. Le code, lui, est sous licence MIT.
 - Si le site change de structure (rare : c'est l'API standard de WordPress), le workflow échoue et GitHub envoie un e-mail ; les données déjà publiées continuent de fonctionner.
