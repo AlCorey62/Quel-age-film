@@ -40,6 +40,10 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 19c.6-3.4 2.7-5 5.5-5s4.9 1.6 5.5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="17" cy="9.5" r="2.4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.2 14.3c2.9-.3 4.7 1 5.3 4.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         <span>Mes enfants</span>
       </button>
+      <button type="button" class="kids-btn" id="est-btn" title="Estimer l'âge d'un film pas encore analysé">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9m6 10V5m6 14v-7m4 7H2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>Estimer un film</span>
+      </button>
     </div>
   </div>
 </header>
@@ -147,6 +151,20 @@
   </form>
 </dialog>
 
+<dialog class="estimator" id="estimator" aria-labelledby="est-title-h">
+  <div class="est-wrap">
+    <div class="dialog-head">
+      <h2 id="est-title-h">Estimer l'âge d'un film</h2>
+      <button type="button" class="icon-btn" id="est-close" aria-label="Fermer">✕</button>
+    </div>
+    <p class="hint">Pour un film que le site n'a pas encore analysé. L'estimation applique les mêmes règles que les 3&nbsp;200 fiches du site, sans tenir compte des classifications officielles.</p>
+    <div class="est-grid">
+      <form id="est-form" autocomplete="off" onsubmit="return false"></form>
+      <aside id="est-result" class="est-result" aria-live="polite"></aside>
+    </div>
+  </div>
+</dialog>
+
 <template id="card-tpl">
   <article class="card" tabindex="0" role="button">
     <div class="poster"><img alt="" loading="lazy" decoding="async"></div>
@@ -161,5 +179,6 @@
 </template>
 
 <script src="app.js"></script>
+<script src="estimate.js"></script>
 </body>
 </html>

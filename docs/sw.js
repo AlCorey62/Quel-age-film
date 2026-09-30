@@ -1,8 +1,8 @@
 /* Service worker : l'application fonctionne hors ligne, les données restent fraîches.
    - coquille (html/css/js/manifest) : cache d'abord, mise à jour en arrière-plan
    - données (data/…) : réseau d'abord, repli sur le cache si hors ligne  */
-const VERSION = "v2";
-const SHELL = ["./", "index.html", "app.css", "app.js", "manifest.webmanifest", "icons/icon.svg"];
+const VERSION = "v3";
+const SHELL = ["./", "index.html", "app.css", "app.js", "estimate.js", "model/age_model.json", "manifest.webmanifest", "icons/icon.svg"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open("shell-" + VERSION).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));

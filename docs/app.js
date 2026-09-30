@@ -133,7 +133,8 @@
     state.y2 = p.get("y2") ? Number(p.get("y2")) : null;
     state.pays = p.get("pays") || "";
     state.sort = p.get("sort") || "rel";
-    state.film = p.get("film") ? Number(p.get("film")) : null;
+    const fid = p.get("film");
+    state.film = fid ? (/^\d+$/.test(fid) ? Number(fid) : fid) : null;
     state.limit = PAGE;
   }
 
@@ -147,6 +148,8 @@
 
   async function loadDetail(id) {
     if (details.has(id)) return details.get(id);
+    const est = films.find((x) => x.id === id && x.est);
+    if (est) return est.detail;   // estimation automatique : le détail est embarqué dans estimates.json
     let d;
     if (INLINE) {
       d = (INLINE.details && INLINE.details[id]) || null;
@@ -309,6 +312,7 @@
       poster.textContent = f.t.slice(0, 1);
     }
     $(".card-title", node).innerHTML = highlight(f.t);
+    if (f.est) $(".card-title", node).insertAdjacentHTML("beforebegin", `<div class="est-pill" title="Le site n'a pas encore analysé ce film : âge calculé automatiquement, affiché avec une marge de prudence">Estimation automatique</div>`);
 
     const v = verdict(f, state.age);
     const vEl = $(".verdict", node);
@@ -320,7 +324,10 @@
     }
 
     const ageLine = $(".age-line", node);
-    ageLine.innerHTML =
+    if (f.est) {
+      ageLine.innerHTML = `<span class="age-big">≈ ${f.estimate} ans</span><span class="age-min">prudent : <b>${f.af}</b> ans</span>` +
+        (f.am != null ? `<span class="age-min">déconseillé aux moins de <b>${f.am}</b></span>` : "");
+    } else ageLine.innerHTML =
       (f.af != null ? `<span class="age-big">Dès ${f.af} ans</span>` : "") +
       (f.am != null && f.am !== f.af ? `<span class="age-min">déconseillé aux moins de <b>${f.am}</b></span>` : "") +
       (f.ax != null ? `<span class="age-min">jusqu'à <b>${f.ax}</b> ans</span>` : "");
@@ -520,6 +527,9 @@
     window.addEventListener("keydown", (e) => { if (e.key === "Escape" && panel.classList.contains("open")) close(); });
   }
 
+  // les fiches du site ont un identifiant numérique, les estimations automatiques un identifiant « est-… »
+  const idOf = (el) => (/^\d+$/.test(el.dataset.id) ? Number(el.dataset.id) : el.dataset.id);
+
   // ---------- Fiche détaillée ----------
   const dlg = $("#detail");
 
@@ -557,6 +567,12 @@
 
   function ageCards(f) {
     const cards = [];
+    if (f.est) {
+      cards.push(`<div class="age-card main"><div class="lbl">Âge prudent</div><div class="val">${f.af} <small>ans</small></div></div>`);
+      cards.push(`<div class="age-card"><div class="lbl">Estimation</div><div class="val">${f.estimate} <small>ans</small></div></div>`);
+      if (f.am != null) cards.push(`<div class="age-card"><div class="lbl">Déconseillé aux moins de</div><div class="val">${f.am} <small>ans</small></div></div>`);
+      return cards.join("");
+    }
     if (f.af != null) cards.push(`<div class="age-card main"><div class="lbl">À partir de</div><div class="val">${f.af} <small>ans</small></div></div>`);
     if (f.am != null) cards.push(`<div class="age-card"><div class="lbl">Déconseillé aux moins de</div><div class="val">${f.am} <small>ans</small></div></div>`);
     if (f.ax != null) cards.push(`<div class="age-card"><div class="lbl">Intéressant jusqu'à</div><div class="val">${f.ax} <small>ans</small></div></div>`);
@@ -592,6 +608,7 @@
     const themes = d?.themes || f.th || [];
     const univers = d?.univers || f.u || [];
     let body = "";
+    if (f.est) body += `<section class="est-banner"><b>Estimation automatique</b> — le site n'a pas encore analysé ce film. L'âge est calculé à partir du synopsis et des avis, avec une marge de prudence. Confiance des informations : <b>${esc(f.conf || "moyenne")}</b>.${d?.missing && d.missing.toLowerCase() !== "rien" ? ` Il manque : ${esc(d.missing)}.` : ""}</section>`;
     if (d) {
       if (d.scenes?.length)
         body += `<section class="section scenes-sec"><h3>Scènes difficiles</h3>${itemsHTML(d.scenes)}</section>`;
@@ -600,7 +617,8 @@
       if (d.messages?.length) body += `<section class="section"><h3>Messages</h3>${itemsHTML(d.messages)}</section>`;
       if (d.vocabulaire) body += `<section class="section"><h3>Vocabulaire</h3><p class="intro">${esc(d.vocabulaire)}</p></section>`;
       for (const s of d.autres || []) body += `<section class="section"><h3>${esc(s.title)}</h3>${s.intro ? `<p class="intro">${esc(s.intro)}</p>` : ""}${s.items?.length ? itemsHTML(s.items) : ""}</section>`;
-      if (d.conclusion) body += `<section class="section"><h3>En résumé</h3><p class="intro">${esc(d.conclusion)}</p></section>`;
+      if (f.est && d.reasons?.length) body += `<section class="section"><h3>Ce qui pèse dans l'estimation</h3><ul class="items">${d.reasons.map((x) => `<li><b>${x.annees > 0 ? "+" : ""}${Number(x.annees).toFixed(1)} an</b><p>${esc(x.facteur)}</p></li>`).join("")}</ul></section>`;
+      if (d.conclusion && !f.est) body += `<section class="section"><h3>En résumé</h3><p class="intro">${esc(d.conclusion)}</p></section>`;
       const cast = d.acteurs?.length ? `<section class="section"><h3>Avec</h3><div class="tags">${d.acteurs.map((a) => `<span class="tag">${esc(a)}</span>`).join("")}</div></section>` : "";
       const studio = d.studio?.length ? `<section class="section"><h3>Studio</h3><div class="tags">${d.studio.map((a) => `<span class="tag">${esc(a)}</span>`).join("")}</div></section>` : "";
       body += cast + studio;
@@ -627,7 +645,7 @@
     ${univers.length ? `<section class="section"><h3>Univers</h3><div class="tags">${univers.map((u) => tagBtn("univers", u)).join("")}</div></section>` : ""}
     ${themes.length ? `<section class="section"><h3>Thèmes</h3><div class="tags">${themes.map((t) => tagBtn("theme", t)).join("")}</div></section>` : ""}
     <div class="detail-foot">
-      <a class="btn-secondary" href="${esc(d?.url || `https://www.filmspourenfants.net/${f.s}/`)}" target="_blank" rel="noopener">Lire la fiche sur filmspourenfants.net ↗</a>
+      <a class="btn-secondary" href="${esc(d?.url || `https://www.filmspourenfants.net/${f.s}/`)}" target="_blank" rel="noopener">${f.est ? "Voir le film sur TMDB ↗" : "Lire la fiche sur filmspourenfants.net ↗"}</a>
       <small>Fiche mise à jour le ${f.m ? new Date(f.m + "Z").toLocaleDateString("fr-FR") : "—"}</small>
     </div>
   </div>
@@ -692,10 +710,10 @@
   // ---------- Liste : interactions ----------
   grid.addEventListener("click", (e) => {
     const card = e.target.closest(".card");
-    if (card) openFilm(Number(card.dataset.id));
+    if (card) openFilm(idOf(card));
   });
   grid.addEventListener("keydown", (e) => {
-    if ((e.key === "Enter" || e.key === " ") && e.target.classList.contains("card")) { e.preventDefault(); openFilm(Number(e.target.dataset.id)); }
+    if ((e.key === "Enter" || e.key === " ") && e.target.classList.contains("card")) { e.preventDefault(); openFilm(idOf(e.target)); }
   });
   $("#more").addEventListener("click", () => { state.limit += PAGE; renderList(false); });
   if ("IntersectionObserver" in window) {
@@ -738,10 +756,14 @@
       $("#empty").innerHTML = `<p><strong>Les données ne se chargent pas.</strong></p><p>${esc(e.message)}. Si tu ouvres le fichier en local, lance un petit serveur : <code>python3 -m http.server -d docs</code></p>`;
       return;
     }
+    let estimates = [];
+    try { estimates = (await loadJSON("estimates.json")) || []; } catch { estimates = []; }
+    if (Array.isArray(estimates) && estimates.length) films = films.concat(estimates);
+    const nEst = Array.isArray(estimates) ? estimates.length : 0;
     prepareIndex();
     if (meta.last_sync) {
       const d = new Date(meta.last_sync);
-      $("#meta").textContent = `${films.length.toLocaleString("fr-FR")} fiches · synchronisé le ${d.toLocaleDateString("fr-FR")} à ${d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}`;
+      $("#meta").textContent = `${(films.length - nEst).toLocaleString("fr-FR")} fiches${nEst ? ` + ${nEst} estimation${nEst > 1 ? "s" : ""}` : ""} · synchronisé le ${d.toLocaleDateString("fr-FR")} à ${d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}`;
     }
     readHash();
     qInput.value = state.q;
