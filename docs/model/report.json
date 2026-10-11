@@ -1,86 +1,86 @@
 {
- "trained_at": "2026-10-04",
- "n_films": 3225,
+ "trained_at": "2026-10-11",
+ "n_films": 3228,
  "alpha": 30,
  "noise_assumption": {
   "recall": 0.85,
   "fp": 0.04,
   "level_sd": 0.6
  },
- "baseline_mae": 2.596,
+ "baseline_mae": 2.595,
  "cv_clean": {
-  "n": 3225,
-  "mae": 1.298,
-  "rmse": 1.707,
-  "within1": 0.669,
+  "n": 3228,
+  "mae": 1.299,
+  "rmse": 1.708,
+  "within1": 0.671,
   "within2": 0.871,
   "under2": 0.161,
-  "bias": 0.002
- },
- "cv_noisy": {
-  "n": 3225,
-  "mae": 1.367,
-  "rmse": 1.782,
-  "within1": 0.647,
-  "within2": 0.852,
-  "under2": 0.179,
-  "bias": -0.044
- },
- "cv_metadata_only": {
-  "n": 3225,
-  "mae": 1.721,
-  "rmse": 2.264,
-  "within1": 0.541,
-  "within2": 0.771,
-  "under2": 0.214,
   "bias": -0.002
  },
+ "cv_noisy": {
+  "n": 3228,
+  "mae": 1.355,
+  "rmse": 1.779,
+  "within1": 0.651,
+  "within2": 0.859,
+  "under2": 0.178,
+  "bias": -0.04
+ },
+ "cv_metadata_only": {
+  "n": 3228,
+  "mae": 1.72,
+  "rmse": 2.262,
+  "within1": 0.538,
+  "within2": 0.771,
+  "under2": 0.213,
+  "bias": -0.004
+ },
  "temporal_2024_plus": {
-  "n": 162,
-  "mae": 1.365,
-  "rmse": 1.756,
-  "within1": 0.642,
-  "within2": 0.864,
-  "under2": 0.204,
-  "bias": -0.272,
+  "n": 164,
+  "mae": 1.374,
+  "rmse": 1.773,
+  "within1": 0.646,
+  "within2": 0.854,
+  "under2": 0.201,
+  "bias": -0.279,
   "bias_note": "biais négatif = sous-estimation des films récents"
  },
  "by_format": {
   "Court-métrage": {
-   "n": 419,
-   "mae": 1.378,
-   "rmse": 1.825,
-   "within1": 0.661,
-   "within2": 0.869,
-   "under2": 0.141,
-   "bias": 0.087
+   "n": 420,
+   "mae": 1.352,
+   "rmse": 1.811,
+   "within1": 0.667,
+   "within2": 0.867,
+   "under2": 0.152,
+   "bias": 0.062
   },
   "Documentaire": {
    "n": 119,
-   "mae": 1.626,
-   "rmse": 2.056,
-   "within1": 0.571,
-   "within2": 0.807,
-   "under2": 0.202,
-   "bias": -0.004
+   "mae": 1.708,
+   "rmse": 2.155,
+   "within1": 0.546,
+   "within2": 0.756,
+   "under2": 0.21,
+   "bias": -0.023
   },
   "Long-métrage": {
-   "n": 1850,
-   "mae": 1.376,
-   "rmse": 1.767,
-   "within1": 0.631,
-   "within2": 0.844,
-   "under2": 0.199,
-   "bias": -0.085
+   "n": 1852,
+   "mae": 1.357,
+   "rmse": 1.755,
+   "within1": 0.637,
+   "within2": 0.857,
+   "under2": 0.193,
+   "bias": -0.077
   },
   "Série": {
    "n": 837,
-   "mae": 1.304,
-   "rmse": 1.751,
+   "mae": 1.301,
+   "rmse": 1.756,
    "within1": 0.687,
-   "within2": 0.867,
-   "under2": 0.151,
-   "bias": -0.023
+   "within2": 0.872,
+   "under2": 0.152,
+   "bias": -0.01
   }
  },
  "prudence": {
@@ -92,7 +92,7 @@
    },
    {
     "below": 8,
-    "margin": 0.45
+    "margin": 0.3
    },
    {
     "below": 10,
@@ -108,70 +108,70 @@
    },
    {
     "below": 99,
-    "margin": 0.1
+    "margin": 0.05
    }
   ],
   "coverage": 0.854,
   "coverage_by_estimated_age": {
-   "2-6": 0.85,
-   "6-8": 0.857,
-   "8-10": 0.852,
-   "10-12": 0.85,
-   "12-14": 0.86,
-   "14-18": 0.857
+   "2-6": 0.861,
+   "6-8": 0.852,
+   "8-10": 0.853,
+   "10-12": 0.851,
+   "12-14": 0.851,
+   "14-18": 0.854
   },
-  "coverage_when_site_age_ge13": 0.61,
+  "coverage_when_site_age_ge13": 0.615,
   "coverage_when_site_age_le12": 0.889,
-  "estimate_when_site_age_ge13_mean": 12.35,
-  "overestimate_mean": 1.25,
-  "overestimate_ge2": 0.449,
+  "estimate_when_site_age_ge13_mean": 12.37,
+  "overestimate_mean": 1.2,
+  "overestimate_ge2": 0.432,
   "single_margin_equivalent": 0.75
  },
  "cv_noisy_deconseille": {
-  "n": 3225,
-  "mae": 1.45,
-  "rmse": 1.903,
-  "within1": 0.626,
-  "within2": 0.833,
-  "under2": 0.202,
-  "bias": -0.117
+  "n": 3228,
+  "mae": 1.46,
+  "rmse": 1.902,
+  "within1": 0.615,
+  "within2": 0.827,
+  "under2": 0.204,
+  "bias": -0.112
  },
- "parity_max_abs_diff_years": 0.005,
+ "parity_max_abs_diff_years": 0.0051,
  "examples": [
   {
    "titre": "Allez raconte",
    "annee": 2006,
    "site": 4,
    "estime": 5,
-   "prudent": 6
+   "prudent": 7
   },
   {
-   "titre": "Igor",
-   "annee": 2008,
-   "site": 9,
-   "estime": 10,
-   "prudent": 12
+   "titre": "Il est ressuscité",
+   "annee": 1988,
+   "site": 8,
+   "estime": 8,
+   "prudent": 9
   },
   {
    "titre": "Ranma 1/2 – Cauchemar l’encens du profond sommeil",
    "annee": 2008,
    "site": 11,
-   "estime": 11,
-   "prudent": 12
+   "estime": 10,
+   "prudent": 11
   },
   {
-   "titre": "Les Bronzés",
-   "annee": 1978,
-   "site": 15,
-   "estime": 9,
-   "prudent": 10
+   "titre": "Les canopus",
+   "annee": 2006,
+   "site": 4,
+   "estime": 5,
+   "prudent": 6
   },
   {
-   "titre": "Into The Mind",
-   "annee": 2013,
-   "site": 7,
-   "estime": 8,
-   "prudent": 9
+   "titre": "Into the Woods : Promenons-nous dans les bois",
+   "annee": 2014,
+   "site": 13,
+   "estime": 12,
+   "prudent": 14
   },
   {
    "titre": "L’Incroyable Histoire de Winter le dauphin",
@@ -181,59 +181,59 @@
    "prudent": 10
   },
   {
-   "titre": "Le Roi et l’Oiseau",
-   "annee": 1980,
-   "site": 7,
+   "titre": "Le Roi lion",
+   "annee": 1994,
+   "site": 8,
    "estime": 8,
-   "prudent": 10
+   "prudent": 9
   },
   {
    "titre": "B.O.B. fait La Bombe",
    "annee": 2008,
    "site": 7,
-   "estime": 9,
-   "prudent": 10
+   "estime": 8,
+   "prudent": 9
   },
   {
    "titre": "Will",
    "annee": 2016,
    "site": 4,
-   "estime": 4,
-   "prudent": 5
+   "estime": 5,
+   "prudent": 6
   },
   {
-   "titre": "Le Cygne et la Princesse",
-   "annee": 1994,
-   "site": 7,
-   "estime": 7,
-   "prudent": 8
+   "titre": "Le Cygne et la Princesse 2 : Le Château des secrets",
+   "annee": 1997,
+   "site": 8,
+   "estime": 8,
+   "prudent": 9
   },
   {
-   "titre": "La Ruée vers l’or",
-   "annee": 1925,
-   "site": 6,
-   "estime": 7,
-   "prudent": 8
+   "titre": "La Sirène",
+   "annee": 2023,
+   "site": 13,
+   "estime": 11,
+   "prudent": 12
   },
   {
-   "titre": "Les Sorcières d’Halloween",
-   "annee": 1998,
-   "site": 7,
-   "estime": 7,
-   "prudent": 8
-  },
-  {
-   "titre": "Mia et le Migou",
-   "annee": 2008,
-   "site": 7,
+   "titre": "Les Sorcières d’Halloween 3",
+   "annee": 2004,
+   "site": 8,
    "estime": 9,
    "prudent": 10
+  },
+  {
+   "titre": "Mia et Moi",
+   "annee": 2011,
+   "site": 7,
+   "estime": 9,
+   "prudent": 11
   },
   {
    "titre": "Qui Voilà ?",
    "annee": 2013,
    "site": 3,
-   "estime": 3,
+   "estime": 4,
    "prudent": 5
   }
  ],
@@ -264,7 +264,7 @@
   },
   {
    "variable": "th:Pauvreté",
-   "annees": 0.66
+   "annees": 0.65
   },
   {
    "variable": "th:Héroïsme",
@@ -283,11 +283,11 @@
    "annees": 0.56
   },
   {
-   "variable": "th:Intérêt amoureux",
+   "variable": "th:Homosexualité",
    "annees": 0.55
   },
   {
-   "variable": "th:Homosexualité",
+   "variable": "th:Intérêt amoureux",
    "annees": 0.55
   },
   {
@@ -300,15 +300,15 @@
   },
   {
    "variable": "th:Religion",
-   "annees": 0.5
-  },
-  {
-   "variable": "th:Jeu",
-   "annees": -0.49
+   "annees": 0.49
   },
   {
    "variable": "th:Abus",
    "annees": 0.49
+  },
+  {
+   "variable": "th:Jeu",
+   "annees": -0.49
   },
   {
    "variable": "th:Alcool",
@@ -316,7 +316,7 @@
   },
   {
    "variable": "th:Sucrerie",
-   "annees": -0.49
+   "annees": -0.48
   }
  ]
 }
