@@ -1,86 +1,86 @@
 {
- "trained_at": "2026-10-25",
- "n_films": 3234,
+ "trained_at": "2026-11-01",
+ "n_films": 3238,
  "alpha": 30,
  "noise_assumption": {
   "recall": 0.85,
   "fp": 0.04,
   "level_sd": 0.6
  },
- "baseline_mae": 2.594,
+ "baseline_mae": 2.596,
  "cv_clean": {
-  "n": 3234,
-  "mae": 1.303,
-  "rmse": 1.714,
-  "within1": 0.667,
-  "within2": 0.871,
-  "under2": 0.159,
-  "bias": 0.014
+  "n": 3238,
+  "mae": 1.307,
+  "rmse": 1.717,
+  "within1": 0.665,
+  "within2": 0.868,
+  "under2": 0.165,
+  "bias": 0.004
  },
  "cv_noisy": {
-  "n": 3234,
-  "mae": 1.369,
-  "rmse": 1.773,
-  "within1": 0.635,
-  "within2": 0.857,
-  "under2": 0.179,
-  "bias": -0.026
+  "n": 3238,
+  "mae": 1.363,
+  "rmse": 1.782,
+  "within1": 0.643,
+  "within2": 0.853,
+  "under2": 0.181,
+  "bias": -0.036
  },
  "cv_metadata_only": {
-  "n": 3234,
-  "mae": 1.721,
-  "rmse": 2.263,
-  "within1": 0.536,
+  "n": 3238,
+  "mae": 1.723,
+  "rmse": 2.265,
+  "within1": 0.535,
   "within2": 0.772,
-  "under2": 0.213,
-  "bias": 0.001
+  "under2": 0.212,
+  "bias": 0.008
  },
  "temporal_2024_plus": {
   "n": 168,
-  "mae": 1.388,
-  "rmse": 1.85,
-  "within1": 0.631,
-  "within2": 0.851,
-  "under2": 0.202,
-  "bias": -0.315,
+  "mae": 1.429,
+  "rmse": 1.792,
+  "within1": 0.595,
+  "within2": 0.833,
+  "under2": 0.232,
+  "bias": -0.254,
   "bias_note": "biais négatif = sous-estimation des films récents"
  },
  "by_format": {
   "Court-métrage": {
-   "n": 421,
-   "mae": 1.381,
-   "rmse": 1.828,
-   "within1": 0.644,
-   "within2": 0.857,
-   "under2": 0.145,
-   "bias": 0.089
+   "n": 423,
+   "mae": 1.387,
+   "rmse": 1.83,
+   "within1": 0.626,
+   "within2": 0.861,
+   "under2": 0.168,
+   "bias": 0.092
   },
   "Documentaire": {
    "n": 119,
-   "mae": 1.72,
-   "rmse": 2.16,
-   "within1": 0.521,
-   "within2": 0.748,
+   "mae": 1.723,
+   "rmse": 2.183,
+   "within1": 0.538,
+   "within2": 0.739,
    "under2": 0.235,
-   "bias": -0.071
+   "bias": -0.068
   },
   "Long-métrage": {
    "n": 1857,
-   "mae": 1.393,
-   "rmse": 1.775,
-   "within1": 0.614,
-   "within2": 0.853,
-   "under2": 0.197,
-   "bias": -0.062
+   "mae": 1.364,
+   "rmse": 1.759,
+   "within1": 0.64,
+   "within2": 0.85,
+   "under2": 0.189,
+   "bias": -0.083
   },
   "Série": {
-   "n": 837,
-   "mae": 1.261,
-   "rmse": 1.678,
-   "within1": 0.693,
-   "within2": 0.881,
-   "under2": 0.148,
-   "bias": 0.001
+   "n": 839,
+   "mae": 1.298,
+   "rmse": 1.747,
+   "within1": 0.675,
+   "within2": 0.874,
+   "under2": 0.162,
+   "bias": 0.008
   }
  },
  "prudence": {
@@ -88,15 +88,15 @@
   "margins": [
    {
     "below": 6,
-    "margin": 0.25
+    "margin": 0.3
    },
    {
     "below": 8,
-    "margin": 0.45
+    "margin": 0.5
    },
    {
     "below": 10,
-    "margin": 1.0
+    "margin": 0.9
    },
    {
     "below": 12,
@@ -104,37 +104,37 @@
    },
    {
     "below": 14,
-    "margin": 1.05
+    "margin": 1.1
    },
    {
     "below": 99,
-    "margin": 0.0
+    "margin": 0.25
    }
   ],
   "coverage": 0.854,
   "coverage_by_estimated_age": {
-   "2-6": 0.855,
-   "6-8": 0.852,
+   "2-6": 0.861,
+   "6-8": 0.85,
    "8-10": 0.85,
-   "10-12": 0.86,
-   "12-14": 0.852,
-   "14-18": 0.883
+   "10-12": 0.856,
+   "12-14": 0.851,
+   "14-18": 0.869
   },
-  "coverage_when_site_age_ge13": 0.618,
+  "coverage_when_site_age_ge13": 0.612,
   "coverage_when_site_age_le12": 0.889,
   "estimate_when_site_age_ge13_mean": 12.39,
-  "overestimate_mean": 1.24,
-  "overestimate_ge2": 0.445,
-  "single_margin_equivalent": 0.8
+  "overestimate_mean": 1.23,
+  "overestimate_ge2": 0.447,
+  "single_margin_equivalent": 0.75
  },
  "cv_noisy_deconseille": {
-  "n": 3234,
-  "mae": 1.496,
-  "rmse": 1.936,
-  "within1": 0.592,
-  "within2": 0.822,
-  "under2": 0.213,
-  "bias": -0.103
+  "n": 3238,
+  "mae": 1.467,
+  "rmse": 1.921,
+  "within1": 0.614,
+  "within2": 0.825,
+  "under2": 0.203,
+  "bias": -0.126
  },
  "parity_max_abs_diff_years": 0.005,
  "examples": [
@@ -146,32 +146,32 @@
    "prudent": 8
   },
   {
-   "titre": "Il est ressuscité",
-   "annee": 1988,
-   "site": 8,
-   "estime": 8,
-   "prudent": 9
-  },
-  {
-   "titre": "Ranma 1/2 – Cauchemar l’encens du profond sommeil",
+   "titre": "Igor",
    "annee": 2008,
-   "site": 11,
-   "estime": 9,
-   "prudent": 10
-  },
-  {
-   "titre": "Les Castors allumés",
-   "annee": 1997,
-   "site": 10,
-   "estime": 7,
-   "prudent": 9
-  },
-  {
-   "titre": "Inu-Oh",
-   "annee": 2022,
-   "site": 13,
+   "site": 9,
    "estime": 10,
    "prudent": 11
+  },
+  {
+   "titre": "Ranma ½ – Rendez-nous nos copines !",
+   "annee": 1992,
+   "site": 11,
+   "estime": 14,
+   "prudent": 15
+  },
+  {
+   "titre": "Les canopus",
+   "annee": 2006,
+   "site": 4,
+   "estime": 5,
+   "prudent": 6
+  },
+  {
+   "titre": "Into The Mind",
+   "annee": 2013,
+   "site": 7,
+   "estime": 10,
+   "prudent": 12
   },
   {
    "titre": "L’Incroyable Hulk",
@@ -181,11 +181,11 @@
    "prudent": 14
   },
   {
-   "titre": "Le Roi lion 2 : L’Honneur de la tribu",
-   "annee": 1998,
-   "site": 7,
-   "estime": 8,
-   "prudent": 10
+   "titre": "Le Roi lion",
+   "annee": 2019,
+   "site": 8,
+   "estime": 7,
+   "prudent": 8
   },
   {
    "titre": "B.R.I.C.O. Club",
@@ -198,43 +198,43 @@
    "titre": "Wilfey, Le Petit Ourson",
    "annee": 2011,
    "site": 3,
-   "estime": 6,
-   "prudent": 8
+   "estime": 3,
+   "prudent": 5
   },
   {
-   "titre": "Le Cygne et la Princesse 3 : Le Trésor enchanté",
-   "annee": 1998,
-   "site": 7,
-   "estime": 8,
-   "prudent": 9
-  },
-  {
-   "titre": "La Sorcière dans les airs",
-   "annee": 2012,
-   "site": 6,
-   "estime": 5,
-   "prudent": 6
-  },
-  {
-   "titre": "Les Sorcières d’Halloween 3",
-   "annee": 2004,
-   "site": 8,
-   "estime": 10,
-   "prudent": 12
-  },
-  {
-   "titre": "Mia et Moi",
-   "annee": 2011,
+   "titre": "Le Cygne et la Princesse",
+   "annee": 1994,
    "site": 7,
    "estime": 9,
    "prudent": 10
   },
   {
+   "titre": "La Ruée vers l’or",
+   "annee": 1925,
+   "site": 6,
+   "estime": 7,
+   "prudent": 8
+  },
+  {
+   "titre": "Les Sorcières d’Halloween 2",
+   "annee": 2001,
+   "site": 8,
+   "estime": 10,
+   "prudent": 11
+  },
+  {
+   "titre": "Mia et Moi",
+   "annee": 2011,
+   "site": 7,
+   "estime": 10,
+   "prudent": 11
+  },
+  {
    "titre": "Qui Voilà ?",
    "annee": 2013,
    "site": 3,
-   "estime": 3,
-   "prudent": 4
+   "estime": 5,
+   "prudent": 6
   }
  ],
  "top_weights": [
@@ -260,7 +260,7 @@
   },
   {
    "variable": "th:Suicide",
-   "annees": 0.67
+   "annees": 0.66
   },
   {
    "variable": "th:Pauvreté",
@@ -279,16 +279,16 @@
    "annees": 0.57
   },
   {
-   "variable": "th:Maladie psychique",
-   "annees": 0.56
-  },
-  {
    "variable": "th:Homosexualité",
-   "annees": 0.55
+   "annees": 0.57
   },
   {
    "variable": "th:Vengeance",
-   "annees": 0.55
+   "annees": 0.56
+  },
+  {
+   "variable": "th:Maladie psychique",
+   "annees": 0.56
   },
   {
    "variable": "th:Intérêt amoureux",
@@ -303,20 +303,20 @@
    "annees": -0.5
   },
   {
-   "variable": "th:Religion",
-   "annees": 0.49
+   "variable": "th:Sucrerie",
+   "annees": -0.49
   },
   {
    "variable": "th:Jeu",
    "annees": -0.49
   },
   {
-   "variable": "th:Abus",
+   "variable": "th:Religion",
    "annees": 0.49
   },
   {
-   "variable": "th:Sucrerie",
-   "annees": -0.49
+   "variable": "th:Abus",
+   "annees": 0.49
   }
  ]
 }
